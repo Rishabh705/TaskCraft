@@ -14,21 +14,29 @@ import Form from './Form'
 
 export default function AddForm({ setTasks, tasks }) {
     const [formData, setFormData] = useState({
+        id:'',
         title: '',
         description: '',
         category: '',
         due_date: '',
         status: '',
     })
+
+    const generateUniqueId = () => {
+        return Math.random().toString(36).substring(2, 9);
+      };
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        // update state
-        const updatedTasks = [...tasks, formData];
-        setTasks(updatedTasks);
+        const taskId = generateUniqueId();
 
+        // update state
+        const updatedTasks = [...tasks, { ...formData, id: taskId }];
+        setTasks(updatedTasks);
         // Clear form data
         setFormData({
+            id:'',
             title: '',
             description: '',
             category: '',

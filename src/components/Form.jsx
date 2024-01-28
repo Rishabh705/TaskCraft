@@ -23,7 +23,6 @@ export default function Form({ formData, setFormData }) {
             };
         });
     };
-    console.log(formData);
     return (
 
         <div className="p-4 pb-0">

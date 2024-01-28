@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import SearchBox from './SearchBox'
 import Tasks from './Tasks'
-import ViewButton from './ViewButton'
-import FilterButton from './FilterButton'
 
 export default function Home() {
   const [text, setText] = useState('');
@@ -17,13 +15,7 @@ export default function Home() {
           <p className='mt-6 text-lg max-w-prose text-muted-foreground'>
             Welcome to TaskCraft, your go-to platform for efficient task management. Stay organized and boost your productivity with our powerful features
           </p>
-          <div className='mt-12 w-full flex justify-between gap-8'>
-            <SearchBox text={text} setText={setText} />
-            <div className='flex gap-8'>
-              <FilterButton />
-              <ViewButton />
-            </div>
-          </div>
+          <SearchBox text={text} setText={setText} />
         </div>
       </MaxWidthWrapper>
       <Tasks text={text} />

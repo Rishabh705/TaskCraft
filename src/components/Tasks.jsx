@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MdDelete } from "react-icons/md";
 import {
   Popover,
@@ -20,6 +21,9 @@ import AddForm from './AddForm'
 import { cn } from '@/lib/utils';
 import EditForm from './EditForm';
 import FilterContext from '@/contexts/FilterContext';
+import ViewButton from './ViewButton'
+import FilterButton from './FilterButton'
+
 
 export default function Tasks({ text }) {
   const [searchParams] = useSearchParams()  //take out the view param from the url
@@ -56,49 +60,77 @@ export default function Tasks({ text }) {
   //mapping the tasks to cards
   const tasksCard = displayedTasks.map((task, index) => {
     return (
-      <Card key={index} className='group'>
-        <CardHeader>
-          <CardTitle>{task.title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>{task.description}</CardDescription>
-        </CardContent>
-        <CardFooter className='flex'>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline">Details</Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className="space-y-2">
-                <div className='flex justify-between items-center'>
-                  <p className="text-sm font-medium text-gray-700">Category</p>
-                  <p className="text-sm text-gray-500">{task.category}</p>
-                </div>
-                <div className='flex justify-between items-center'>
-                  <p className="text-sm font-medium text-gray-700">Due Date</p>
-                  <p className="text-sm text-gray-500">{task.due_date}</p>
-                </div>
-                <div className='flex justify-between items-center'>
-                  <p className="text-sm font-medium text-gray-700">Status</p>
-                  <p className="text-sm text-gray-500">{task.status}</p>
-                </div>
+      <Draggable key={index} draggableId={task.id} index={index} >
+        {provided => (
+          <Card className='group' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+            <CardHeader>
+              <CardTitle>{task.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>{task.description}</CardDescription>
+            </CardContent>
+            <CardFooter className='flex'>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline">Details</Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className="space-y-2">
+                    <div className='flex justify-between items-center'>
+                      <p className="text-sm font-medium text-gray-700">Category</p>
+                      <p className="text-sm text-gray-500">{task.category}</p>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                      <p className="text-sm font-medium text-gray-700">Due Date</p>
+                      <p className="text-sm text-gray-500">{task.due_date}</p>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                      <p className="text-sm font-medium text-gray-700">Status</p>
+                      <p className="text-sm text-gray-500">{task.status}</p>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              <div className='flex-1 hidden justify-end ml-4 gap-1 group-hover:flex'>
+                <EditForm tasks={tasks} setTasks={setTasks} taskIndex={index} />
+                <MdDelete size={25} color='red' onClick={handleDelete} />
               </div>
-            </PopoverContent>
-          </Popover>
-          <div className='flex-1 hidden justify-end ml-4 gap-1 group-hover:flex'>
-            <EditForm tasks={tasks} setTasks={setTasks} taskIndex={index} />
-            <MdDelete size={25} color='red' onClick={handleDelete} />
-          </div>
-        </CardFooter>
-      </Card>
+            </CardFooter>
+          </Card>
+        )}
+      </Draggable>
     )
   })
+
+  const handleOnDrag = (result) =>{
+    if (!result.destination) return;
+
+    const items = Array.from(tasks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setTasks(items);
+  }
+
   return (
     <MaxWidthWrapper>
-      <div className={cn(viewstyle, ' min-h-52 pb-10')}>
-        {tasksCard}
-        <AddForm tasks={tasks} setTasks={setTasks} />
+      <div className='mb-2 flex justify-between'>
+        <h1 className='text-2xl'>Your Tasks</h1>
+        <div className='flex gap-8'>
+          <FilterButton />
+          <ViewButton className='hidden lg:block' />
+        </div>
       </div>
+      <DragDropContext onDragEnd={handleOnDrag}>
+        <Droppable droppableId="tasks">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps} className={cn(viewstyle, ' min-h-52 pb-10')}>
+              {tasksCard}
+              {provided.placeholder}
+              <AddForm tasks={tasks} setTasks={setTasks} />
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </MaxWidthWrapper>
   )
 }
