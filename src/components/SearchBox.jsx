@@ -7,7 +7,7 @@ const SearchBox = ({text,setText}) => {
     }
 
     return (
-        <div className='w-4/5'>
+        <div className='mt-12 w-4/5'>
             <div className="relative flex w-full items-stretch">
                 <Input type='text' placeholder='Find tasks in a flash...' value={text} onChange={handleChange}/>
             </div>
