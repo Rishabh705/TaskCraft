@@ -40,9 +40,8 @@ export default function FilterButton({ className }) {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="none">Status</SelectItem>
-                        <SelectItem value="Not Started">Not Started</SelectItem>
-                        <SelectItem value="In Progress">In Progress</SelectItem>
-                        <SelectItem value="Completed">Completed</SelectItem>
+                        <SelectItem value="Incomplete">Incomplete</SelectItem>
+                        <SelectItem value="Complete">Complete</SelectItem>
                     </SelectContent>
                 </Select>
                 <Select onValueChange={(value) => handleChange('category', value)} value={filter.category.value}>
