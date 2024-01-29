@@ -7,8 +7,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { Button } from './ui/button'
 
-export default function Form({ formData, setFormData }) {
+export default function Form({ formData, setFormData, handleSubmit }) {
     const handleFormChange = (e) => {
         setFormData({
             ...formData,
@@ -26,7 +27,7 @@ export default function Form({ formData, setFormData }) {
     return (
 
         <div className="p-4 pb-0">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
                     <Input type="text" name="title" value={formData.title} onChange={handleFormChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder='Enter task title' required />
@@ -37,7 +38,7 @@ export default function Form({ formData, setFormData }) {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
-                    <Select name="category" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('category', value)} value={formData.category}>
+                    <Select name="category" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('category', value)} value={formData.category} required>
                         <SelectTrigger>
                             <SelectValue placeholder="Category" />
                         </SelectTrigger>
@@ -53,7 +54,7 @@ export default function Form({ formData, setFormData }) {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
-                    <Select name="status" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('status', value)} value={formData.status}>
+                    <Select name="status" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('status', value)} value={formData.status} required>
                         <SelectTrigger>
                             <SelectValue placeholder="Status" />
                         </SelectTrigger>
@@ -64,6 +65,7 @@ export default function Form({ formData, setFormData }) {
                         </SelectContent>
                     </Select>
                 </div>
+                <Button className='w-full'>Submit</Button>
             </form>
         </div>
 
