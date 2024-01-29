@@ -4,12 +4,13 @@ import { Badge } from "@/components/ui/badge";
 const CountdownTimer = ({ task }) => {
     const due_date = task.due_date; 
     const calculateTimeLeft = () => {
-        const difference = +new Date(due_date) - +new Date();
+        const difference = new Date(due_date) - new Date();
         let timeLeft = {
             days: 0,
             hours: 0,
             minutes: 0,
             seconds: 0,
+            difference: difference,
         };
 
         if (difference > 0) {
@@ -20,7 +21,6 @@ const CountdownTimer = ({ task }) => {
                 seconds: Math.floor((difference / 1000) % 60),
             };
         }
-
         return timeLeft;
     };
 
@@ -33,7 +33,7 @@ const CountdownTimer = ({ task }) => {
             setTimeLeft(updatedTimeLeft);
 
             // Check if timeLeft is 30 minutes or less
-            if (updatedTimeLeft.minutes <= 30) {
+            if (updatedTimeLeft.difference <= 1800) {
                 setBadgeVariant('destructive');
             } else {
                 setBadgeVariant('default');
