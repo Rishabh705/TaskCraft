@@ -21,13 +21,13 @@ export default function TaskCard({ task, tasks, setTasks, index, handleDelete })
     return (
         <>
             <CardHeader className='pb-2'>
-                <div className={`pb-1 ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
+                <div className={` pb-1 ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
                     <TimeLeft task={task} />
                 </div>
                 <CardTitle className='font-normal'>{task.title.substring(0, 25)} {task.title.split("").length > 28 && "..."}</CardTitle>
             </CardHeader>
             <CardContent className=''>
-                <CardDescription>{task.description.substring(0, 200)} {task.description.split("").length > 28 && "..."}</CardDescription>
+                <CardDescription className='break-all'>{task.description.substring(0, 200)} {task.description.split("").length > 28 && "..."}</CardDescription>
             </CardContent>
             <CardFooter className='flex w-full items-center justify-between'>
                 <Popover>
