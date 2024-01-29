@@ -29,7 +29,7 @@ export default function TaskCard({ task, tasks, setTasks, index, handleDelete })
             <CardContent className='overflow-hidden'>
                 <CardDescription>{task.description.substring(0, 80)} {task.description.split("").length > 28 && "..."}</CardDescription>
             </CardContent>
-            <CardFooter className='flex items-center justify-between'>
+            <CardFooter className='flex w-full items-center justify-between absolute bottom-0'>
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button variant="outline">Details</Button>
