@@ -49,7 +49,7 @@ export default function Tasks({ text }) {
     return (
       <Draggable key={index} draggableId={task.id} index={index} >
         {provided => (
-          <Card {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`group relative h-52 ${task.status === 'Completed' ? 'bg-green-200' : ''}`} >
+          <Card {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`group relative min-h-52 ${task.status === 'Completed' ? 'bg-green-200' : ''}`} >
             <TaskCard task={task} tasks={tasks} setTasks={setTasks} index={index} handleDelete={handleDelete} />
           </Card>
         )}

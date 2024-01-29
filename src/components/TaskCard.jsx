@@ -20,16 +20,16 @@ import TimeLeft from './TimeLeft';
 export default function TaskCard({ task, tasks, setTasks, index, handleDelete }) {
     return (
         <>
-            <CardHeader className='flex flex-row items-center justify-between'>
-                <CardTitle className='font-normal'>{task.title.substring(0, 25)} {task.title.split("").length > 28 && "..."}</CardTitle>
-                <div className={` ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
+            <CardHeader className='pb-2'>
+                <div className={`pb-1 ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
                     <TimeLeft task={task} />
                 </div>
+                <CardTitle className='font-normal'>{task.title.substring(0, 25)} {task.title.split("").length > 28 && "..."}</CardTitle>
             </CardHeader>
-            <CardContent className='overflow-hidden'>
-                <CardDescription>{task.description.substring(0, 80)} {task.description.split("").length > 28 && "..."}</CardDescription>
+            <CardContent className=''>
+                <CardDescription>{task.description.substring(0, 200)} {task.description.split("").length > 28 && "..."}</CardDescription>
             </CardContent>
-            <CardFooter className='flex w-full items-center justify-between absolute bottom-0'>
+            <CardFooter className='flex w-full items-center justify-between'>
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button variant="outline">Details</Button>
