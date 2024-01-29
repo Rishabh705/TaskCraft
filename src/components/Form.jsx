@@ -1,17 +1,33 @@
 import React from 'react'
 import { Input } from './ui/input'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { Button } from './ui/button'
 
-export default function Form({ formData, setFormData }) {
+export default function Form({ formData, setFormData, handleSubmit }) {
     const handleFormChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         })
     }
+    const handleChange = (type, value) => {
+        setFormData((prev) => {
+            return {
+                ...prev,
+                [type]:  value,
+            };
+        });
+    };
     return (
 
         <div className="p-4 pb-0">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
                     <Input type="text" name="title" value={formData.title} onChange={handleFormChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder='Enter task title' required />
@@ -22,11 +38,15 @@ export default function Form({ formData, setFormData }) {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
-                    <select name="category" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onChange={handleFormChange} value={formData.category} required>
-                        <option value="">Select Category</option>
-                        <option value="Work">Work</option>
-                        <option value="Personal">Personal</option>
-                    </select>
+                    <Select name="category" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('category', value)} value={formData.category} required>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Work">Work</SelectItem>
+                            <SelectItem value="Personal">Personal</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="due_date" className="block text-sm font-medium text-gray-700">Due Date</label>
@@ -34,13 +54,18 @@ export default function Form({ formData, setFormData }) {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
-                    <select name="status" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onChange={handleFormChange} value={formData.status} required>
-                        <option value="">Select Status</option>
-                        <option value="Not Started">Not Started</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Completed">Completed</option>
-                    </select>
+                    <Select name="status" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('status', value)} value={formData.status} required>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Not Started">Not Started</SelectItem>
+                            <SelectItem value="In Progress">In Progress</SelectItem>
+                            <SelectItem value="Completed">Completed</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
+                <Button className='w-full'>Submit</Button>
             </form>
         </div>
 

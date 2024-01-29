@@ -44,12 +44,9 @@ export default function EditForm({ setTasks, tasks, taskIndex }) {
                         <DrawerDescription>Fill in the form to edit the task.</DrawerDescription>
                     </DrawerHeader>
 
-                    <Form formData={formData} setFormData={setFormData} />
+                    <Form formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} />
 
                     <DrawerFooter>
-                        <DrawerClose asChild>
-                            <Button onClick={handleSubmit}>Submit</Button>
-                        </DrawerClose>
                         <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DrawerClose>

@@ -64,7 +64,6 @@ export default function AddForm({ setTasks, tasks }) {
                     <Form formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} />
 
                     <DrawerFooter>
-                        <Button onClick={handleSubmit}>Submit</Button>
                         <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DrawerClose>

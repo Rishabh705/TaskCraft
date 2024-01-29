@@ -22,7 +22,9 @@ export default function TaskCard({ task, tasks, setTasks, index, handleDelete })
         <>
             <CardHeader className='flex flex-row items-center justify-between'>
                 <CardTitle className='font-normal'>{task.title.substring(0, 25)} {task.title.split("").length > 28 && "..."}</CardTitle>
-                <TimeLeft task={task}/>
+                <div className={` ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
+                    <TimeLeft task={task} />
+                </div>
             </CardHeader>
             <CardContent className='overflow-hidden'>
                 <CardDescription>{task.description.substring(0, 80)} {task.description.split("").length > 28 && "..."}</CardDescription>
