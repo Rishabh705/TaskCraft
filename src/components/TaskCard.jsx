@@ -21,7 +21,7 @@ export default function TaskCard({ task, tasks, setTasks, index, handleDelete })
     return (
         <>
             <CardHeader className='pb-2'>
-                <div className={`pb-1 ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
+                <div className={` pb-1 ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
                     <TimeLeft task={task} />
                 </div>
                 <CardTitle className='font-normal'>{task.title.substring(0, 25)} {task.title.split("").length > 28 && "..."}</CardTitle>
