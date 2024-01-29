@@ -14,7 +14,7 @@ import Form from './Form'
 
 export default function AddForm({ setTasks, tasks }) {
     const [formData, setFormData] = useState({
-        id:'',
+        id: '',
         title: '',
         description: '',
         category: '',
@@ -24,7 +24,7 @@ export default function AddForm({ setTasks, tasks }) {
 
     const generateUniqueId = () => {
         return Math.random().toString(36).substring(2, 9);
-      };
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -36,7 +36,7 @@ export default function AddForm({ setTasks, tasks }) {
         setTasks(updatedTasks);
         // Clear form data
         setFormData({
-            id:'',
+            id: '',
             title: '',
             description: '',
             category: '',
@@ -62,7 +62,7 @@ export default function AddForm({ setTasks, tasks }) {
                     </DrawerHeader>
 
                     <Form formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} />
-                    
+
                     <DrawerFooter>
                         <Button onClick={handleSubmit}>Submit</Button>
                         <DrawerClose asChild>

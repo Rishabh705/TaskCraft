@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Drawer,
     DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose
@@ -9,12 +9,21 @@ import Form from './Form'
 
 export default function EditForm({ setTasks, tasks, taskIndex }) {
     const [formData, setFormData] = useState({
-        title: tasks[taskIndex]?.title || '',
-        description: tasks[taskIndex]?.description || '',
-        category: tasks[taskIndex]?.category || '',
-        due_date: tasks[taskIndex]?.due_date || '',
-        status: tasks[taskIndex]?.status || '',
+        title:  '',
+        description: '',
+        category:  '',
+        due_date:  '',
+        status:'',
     })
+    useEffect(() => {
+        setFormData({
+            title: tasks[taskIndex]?.title || '',
+            description: tasks[taskIndex]?.description || '',
+            category: tasks[taskIndex]?.category || '',
+            due_date: tasks[taskIndex]?.due_date || '',
+            status: tasks[taskIndex]?.status || '',
+        })
+    },[tasks])
     const handleSubmit = (e) => {
         e.preventDefault();
 

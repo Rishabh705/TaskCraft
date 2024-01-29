@@ -1,12 +1,5 @@
 import React from 'react'
 import { Input } from './ui/input'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 
 export default function Form({ formData, setFormData }) {
     const handleFormChange = (e) => {
@@ -15,14 +8,6 @@ export default function Form({ formData, setFormData }) {
             [e.target.name]: e.target.value
         })
     }
-    const handleChange = (type, value) => {
-        setFormData((prev) => {
-            return {
-                ...prev,
-                [type]:  value,
-            };
-        });
-    };
     return (
 
         <div className="p-4 pb-0">
@@ -37,15 +22,11 @@ export default function Form({ formData, setFormData }) {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
-                    <Select name="category" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('category', value)} value={formData.category}>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="Work">Work</SelectItem>
-                            <SelectItem value="Personal">Personal</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <select name="category" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onChange={handleFormChange} value={formData.category} required>
+                        <option value="">Select Category</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                    </select>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="due_date" className="block text-sm font-medium text-gray-700">Due Date</label>
@@ -53,16 +34,12 @@ export default function Form({ formData, setFormData }) {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
-                    <Select name="status" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onValueChange={(value) => handleChange('status', value)} value={formData.status}>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="Not Started">Not Started</SelectItem>
-                            <SelectItem value="In Progress">In Progress</SelectItem>
-                            <SelectItem value="Completed">Completed</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <select name="status" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onChange={handleFormChange} value={formData.status} required>
+                        <option value="">Select Status</option>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
                 </div>
             </form>
         </div>
