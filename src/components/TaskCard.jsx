@@ -16,18 +16,22 @@ import { Button } from './ui/button'
 import EditForm from './EditForm';
 import MarkComplete from './MarkComplete';
 import TimeLeft from './TimeLeft';
+import { useSearchParams } from 'react-router-dom';
 
 export default function TaskCard({ task, tasks, setTasks, index, handleDelete }) {
+    const [searchParams] = useSearchParams()  //take out the view param from the url
+    const isGrid = searchParams.get('view') === 'grid' ? true : false;
+
     return (
         <>
             <CardHeader className='pb-2'>
-                <div className={` pb-1 ${task.status === 'Completed' ? 'hidden' : 'block'}`}>
+                <div className={`pb-1 ${task.status === 'Complete' ? 'hidden' : 'block'}`}>
                     <TimeLeft task={task} />
                 </div>
-                <CardTitle className='font-normal'>{task.title.substring(0, 25)} {task.title.split("").length > 28 && "..."}</CardTitle>
+                <CardTitle className='font-normal'>{isGrid ? task.title.substring(0, 25):task.title.substring(0, 50)} {isGrid ? task.title.split("").length > 28 && "..." : task.title.split("").length > 50 && "..."}</CardTitle>
             </CardHeader>
             <CardContent className=''>
-                <CardDescription className='break-all'>{task.description.substring(0, 200)} {task.description.split("").length > 28 && "..."}</CardDescription>
+                <CardDescription className='break-all'>{isGrid?task.description.substring(0, 200):task.description.substring(0, 300)} {isGrid?task.description.split("").length > 28 && "...":task.description.split("").length > 60 && "..."}</CardDescription>
             </CardContent>
             <CardFooter className='flex w-full items-center justify-between'>
                 <Popover>
@@ -53,9 +57,9 @@ export default function TaskCard({ task, tasks, setTasks, index, handleDelete })
                 </Popover>
                 <div className='justify-end gap-1 hidden group-hover:flex'>
                     <EditForm tasks={tasks} setTasks={setTasks} taskIndex={index} />
-                    <MdDelete size={25} color='red' onClick={handleDelete} />
-                    <div className={`hidden ${task.status === 'Completed' ? '' : 'group-hover:flex'}`}>
-                        <MarkComplete tasks={tasks} setTasks={setTasks} taskIndex={index} />
+                    <MdDelete size={25} color='red' onClick={()=>handleDelete(task.id)} />
+                    <div className={`hidden ${task.status === 'Complete' ? '' : 'group-hover:flex'}`}>
+                        <MarkComplete tasks={tasks} setTasks={setTasks} taskId={task.id} />
                     </div>
                 </div>
             </CardFooter>

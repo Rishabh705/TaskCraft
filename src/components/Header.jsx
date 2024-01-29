@@ -9,9 +9,12 @@ const Header = () => {
         <MaxWidthWrapper>
           <div className='border-b border-gray-200'>
             <div className='flex h-16 items-center justify-between'>
-              <div className='ml-4 flex lg:ml-0'>
+              <div className='ml-4 flex items-center gap-4 lg:ml-0'>
                 <Link to='/'>
                   <FaTasks size={30} color='#f97316' />
+                </Link>
+                <Link to='/'>
+                  <h1 className='text-3xl font-semibold mb-1'>TaskCraft</h1>
                 </Link>
               </div>
               {/* <Profile  /> */}
